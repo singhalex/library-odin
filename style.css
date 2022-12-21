@@ -77,3 +77,15 @@ h1 {
   font-size: large;
   text-align: center;
 }
+
+.have-read {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+}
+
+.have-read::before {
+  content: "Read?";
+  right: 1rem;
+  position: absolute;
+}
