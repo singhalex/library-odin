@@ -29,6 +29,7 @@ library.forEach((book) => {
   const author = document.createElement('p');
   const pages = document.createElement('p');
   const bookCard = document.createElement('div');
+  const deleteBook = document.createElement('button');
 
   title.innerText = book.title;
   title.className = 'title';
@@ -39,10 +40,14 @@ library.forEach((book) => {
   pages.innerText = `${book.pages} pages`;
   pages.className = 'pages';
 
+  deleteBook.className = 'delete';
+  deleteBook.innerText = 'X';
+
   bookCard.className = 'book-card';
 
   libraryContainer.appendChild(bookCard);
   bookCard.appendChild(title);
   bookCard.appendChild(author);
   bookCard.appendChild(pages);
+  bookCard.appendChild(deleteBook);
 });
