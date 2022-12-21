@@ -17,10 +17,13 @@ function displayBooks(book) {
   const deleteBook = document.createElement('button');
   const haveRead = document.createElement('input');
 
+  // Location of the book in the library array
+  library.push(book);
+  const bookIndex = library.indexOf(book);
+
   // Adds the appropriate classes and text to the elements
   bookCard.className = 'book-card';
-  library.push(book);
-  bookCard.setAttribute('data-attribute', library.indexOf(book));
+  bookCard.setAttribute('data-attribute', bookIndex);
 
   title.innerText = book.title;
   title.className = 'title';
@@ -34,9 +37,10 @@ function displayBooks(book) {
   deleteBook.className = 'delete';
   deleteBook.innerText = 'X';
   deleteBook.addEventListener('click', () => {
-    document.querySelector(`[data-attribute="${library.indexOf(book)}"]`).remove();
-    // library.splice(`${library.indexOf(book)}`);
-    // console.table(library);
+    document.querySelector(`[data-attribute="${bookIndex}"]`).remove();
+    const whereIsBook = library.indexOf(book);
+    library.splice(whereIsBook, 1);
+    console.table(library);
   });
 
   haveRead.setAttribute('type', 'checkbox');
