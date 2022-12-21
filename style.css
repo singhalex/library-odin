@@ -21,9 +21,13 @@ h1 {
   text-align: center;
 }
 
+#add-new-book,
 #library-container {
   margin: auto;
   width: min(80%, 1000px);
+}
+
+#library-container {
   padding: 1rem;
   display: flex;
   gap: 1.5rem;
