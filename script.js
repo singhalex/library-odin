@@ -33,16 +33,16 @@ library.forEach((book) => {
   title.innerText = book.title;
   title.className = 'title';
 
-  author.innerText = book.author;
+  author.innerText = `by ${book.author}`;
   author.className = 'author';
 
-  pages.innerText = book.pages;
+  pages.innerText = `${book.pages} pages`;
   pages.className = 'pages';
 
   bookCard.className = 'book-card';
 
   libraryContainer.appendChild(bookCard);
+  bookCard.appendChild(title);
   bookCard.appendChild(author);
   bookCard.appendChild(pages);
-  bookCard.appendChild(title);
 });
