@@ -23,18 +23,18 @@
     <form action="" id="add-new-book">
       <fieldset>
         <label for="title-new">Title</label>
-        <input type="text" id="title-new" />
+        <input type="text" id="title-new" required />
 
         <label for="author-new">Author</label>
-        <input type="text" id="author-new" />
+        <input type="text" id="author-new" required />
 
         <label for="pages-new">Pages</label>
-        <input type="text" id="pages-new" />
+        <input type="number" id="pages-new" required />
 
         <label for="read-new">Read?</label>
-        <input type="checkbox" />
+        <input type="checkbox" id="read-new" />
 
-        <button type="submit">Add</button>
+        <button type="submit" id="submit-book">Add</button>
       </fieldset>
     </form>
     <div id="library-container"></div>

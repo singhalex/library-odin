@@ -19,6 +19,8 @@ function displayBooks(book) {
 
   // Adds the appropriate classes and text to the elements
   bookCard.className = 'book-card';
+  library.push(book);
+  bookCard.setAttribute('data-attribute', library.indexOf(book));
 
   title.innerText = book.title;
   title.className = 'title';
@@ -31,6 +33,11 @@ function displayBooks(book) {
 
   deleteBook.className = 'delete';
   deleteBook.innerText = 'X';
+  deleteBook.addEventListener('click', () => {
+    document.querySelector(`[data-attribute="${library.indexOf(book)}"]`).remove();
+    // library.splice(`${library.indexOf(book)}`);
+    // console.table(library);
+  });
 
   haveRead.setAttribute('type', 'checkbox');
   haveRead.className = 'have-read';
@@ -44,14 +51,32 @@ function displayBooks(book) {
   bookCard.appendChild(haveRead);
 }
 
-function addBookToLibrary() {
+function displayLibrary() {
   // Adds each book in the library to the page
   library.forEach((book) => displayBooks(book));
+  // displayBooks(library[-1]);
 }
 
 function createNewBook() {
   // Take user input to form a new book object and add it to the library array
+  const form = document.getElementById('add-new-book');
+  const titleNew = document.getElementById('title-new').value;
+  const authorNew = document.getElementById('author-new').value;
+  const pagesNew = document.getElementById('pages-new').value;
+  const readNew = document.getElementById('read-new').checked;
+
+  const newBook = new Book(titleNew, authorNew, pagesNew);
+  newBook.read = readNew;
+
+  // library.push(newBook);
+  displayBooks(newBook);
+  form.reset();
+  console.table(library);
 }
+
+const submitBook = document.getElementById('submit-book');
+submitBook.addEventListener('click', createNewBook);
+submitBook.addEventListener('click', (e) => e.preventDefault());
 
 // Test book objects
 const book1 = new Book('The Grinch', 'Dr. Suess', '50');
@@ -62,5 +87,3 @@ const book3 = new Book('The Bible', 'Jesus', '1000000');
 library[0] = book1;
 library[1] = book2;
 library[2] = book3;
-
-addBookToLibrary();
