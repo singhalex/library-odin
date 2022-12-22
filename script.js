@@ -16,7 +16,7 @@ function displayBooks(book) {
   const author = document.createElement('p');
   const pages = document.createElement('p');
   const deleteBook = document.createElement('button');
-  const haveRead = document.createElement('input');
+  const haveRead = document.createElement('button');
 
   // Identifies the index of the book in the library array
   library.push(book);
@@ -35,6 +35,7 @@ function displayBooks(book) {
   pages.innerText = `${book.pages} pages`;
   pages.className = 'pages';
 
+  // Adds functionality to the delete button
   deleteBook.className = 'delete';
   deleteBook.innerText = 'X';
   deleteBook.addEventListener('click', () => {
@@ -43,11 +44,17 @@ function displayBooks(book) {
     library.splice(whereIsBook, 1);
   });
 
-  haveRead.setAttribute('type', 'checkbox');
-  haveRead.className = 'read-check-box';
-  if (book.hasRead) {
-    haveRead.checked = true;
-  }
+  // Adds functionality to the hasRead button
+  haveRead.className = 'read-button';
+  book.hasRead ? (haveRead.innerText = 'Read') : (haveRead.innerText = 'Not Read');
+  haveRead.addEventListener('click', () => {
+    bookCard.classList.toggle('has-read');
+    if (bookCard.className === 'book-card has-read') {
+      haveRead.innerText = 'Read';
+    } else {
+      haveRead.innerText = 'Not Read';
+    }
+  });
 
   // Adds a class to read books for styling
   if (book.hasRead) {

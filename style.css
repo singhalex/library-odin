@@ -82,14 +82,8 @@ h1 {
   text-align: center;
 }
 
-.read-check-box {
+.read-button {
   position: absolute;
   bottom: 0.5rem;
   right: 0.5rem;
-}
-
-.read-check-box::before {
-  content: "Read?";
-  right: 1rem;
-  position: absolute;
 }
