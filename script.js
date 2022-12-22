@@ -23,15 +23,20 @@ function addBookIfInputValid() {
     document.getElementById('author-new').checkValidity() &&
     document.getElementById('pages-new').checkValidity()
   ) {
+    console.log('valid check');
     submitBookButton.addEventListener('click', (event) => event.preventDefault());
     createNewBook();
+    // Removes focus from input fields
     document.activeElement.blur();
   }
 }
 
 function createNewBook() {
-  // Take user input to form a new book object and adds it to the page
+  // Take user inputs to form a new book object and adds it to the page
+
   const form = document.getElementById('add-new-book');
+
+  // Creates variables from the inputs on the form
   const titleNew = document.getElementById('title-new').value;
   const authorNew = document.getElementById('author-new').value;
   const pagesNew = document.getElementById('pages-new').value;
@@ -40,24 +45,37 @@ function createNewBook() {
   // Creates a newBook object from the user input fields
   const newBook = new Book(titleNew, authorNew, pagesNew, readNew);
 
-  displayBooks(newBook);
+  displayBook(newBook);
   form.reset();
 }
 
-function displayBooks(book) {
+function displayBook(book) {
   // Creates the html elements that comprise a card
   const bookCard = document.createElement('div');
   const title = document.createElement('p');
   const author = document.createElement('p');
   const pages = document.createElement('p');
-  const deleteBook = document.createElement('button');
+  const deleteBookButton = document.createElement('button');
   const haveRead = document.createElement('button');
 
   // Identifies the index of the book in the library array
   library.push(book);
   const bookIndex = library.indexOf(book);
 
-  // Adds the appropriate classes and text to the elements
+  addClassAndTextToElements(bookCard, title, author, pages, book, bookIndex, deleteBookButton, haveRead);
+
+  addHaveReadStatus(haveRead, book, bookCard);
+
+  // Builds the cards structure and adds it to the DOM
+  libraryContainer.appendChild(bookCard);
+  bookCard.appendChild(title);
+  bookCard.appendChild(author);
+  bookCard.appendChild(pages);
+  bookCard.appendChild(deleteBookButton);
+  bookCard.appendChild(haveRead);
+}
+
+function addClassAndTextToElements(bookCard, title, author, pages, book, bookIndex, deleteBookButton, haveRead) {
   bookCard.className = 'book-card';
   bookCard.setAttribute('data-attribute', bookIndex);
 
@@ -70,20 +88,28 @@ function displayBooks(book) {
   pages.innerText = `${book.pages} pages`;
   pages.className = 'pages';
 
-  // Adds functionality to the delete button
-  deleteBook.className = 'delete';
-  deleteBook.innerText = 'X';
-  deleteBook.addEventListener('click', () => {
-    document.querySelector(`[data-attribute="${bookIndex}"]`).remove();
+  deleteBookButton.className = 'delete';
+  deleteBookButton.innerText = 'X';
+  // Add delete book functionality to the delete button
+  deleteBookButton.addEventListener('click', () => deleteBook(bookIndex));
 
-    // locates the object in the array and removes it
-    const whereIsBook = library.indexOf(book);
-    library.splice(whereIsBook, 1);
-  });
-
-  // Changes the class and text when the read button is clicked
   haveRead.className = 'read-button';
   haveRead.innerText = book.hasRead ? 'Read' : 'Not Read';
+}
+
+function deleteBook(bookIndex) {
+  document.querySelector(`[data-attribute="${bookIndex}"]`).remove();
+
+  /* locates the object in the array and removes it
+    This causes issues of duplicate data-attributes.
+    I need to find a solution to this or risk the library getting too large
+
+    const whereIsBook = library.indexOf(book);
+    library.splice(whereIsBook, 1);
+    */
+}
+
+function addHaveReadStatus(haveRead, book, bookCard) {
   haveRead.addEventListener('click', () => {
     // Toggles the class of the card container for styling
     bookCard.classList.toggle('has-read');
@@ -94,19 +120,9 @@ function displayBooks(book) {
     }
     // Toggles the object value for read status
     book.toggleHasRead();
-    console.table(book);
   });
 
-  // Adds a class to read books for styling
   if (book.hasRead) {
     bookCard.className += ' has-read';
   }
-
-  // Builds the cards structure and adds it to the DOM
-  libraryContainer.appendChild(bookCard);
-  bookCard.appendChild(title);
-  bookCard.appendChild(author);
-  bookCard.appendChild(pages);
-  bookCard.appendChild(deleteBook);
-  bookCard.appendChild(haveRead);
 }
