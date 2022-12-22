@@ -104,9 +104,8 @@ submitBook.addEventListener('click', () => {
     document.getElementById('author-new').checkValidity() &&
     document.getElementById('pages-new').checkValidity()
   ) {
+    submitBook.addEventListener('click', (e) => e.preventDefault());
     createNewBook();
-    document.getElementById('title-new').focus();
+    document.activeElement.blur();
   }
 });
-
-submitBook.addEventListener('click', (e) => e.preventDefault());
