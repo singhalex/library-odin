@@ -9,6 +9,10 @@ function Book(title, author, pages, hasRead) {
   this.hasRead = hasRead;
 }
 
+Book.prototype.toggleHasRead = function () {
+  this.hasRead = !this.hasRead;
+};
+
 function displayBooks(book) {
   // Creates the html elements that comprise a card
   const bookCard = document.createElement('div');
@@ -46,7 +50,7 @@ function displayBooks(book) {
 
   // Adds functionality to the hasRead button
   haveRead.className = 'read-button';
-  book.hasRead ? (haveRead.innerText = 'Read') : (haveRead.innerText = 'Not Read');
+  haveRead.innerText = book.hasRead ? 'Read' : 'Not Read';
   haveRead.addEventListener('click', () => {
     bookCard.classList.toggle('has-read');
     if (bookCard.className === 'book-card has-read') {
@@ -54,6 +58,8 @@ function displayBooks(book) {
     } else {
       haveRead.innerText = 'Not Read';
     }
+    book.toggleHasRead();
+    console.table(book);
   });
 
   // Adds a class to read books for styling
@@ -88,7 +94,16 @@ function createNewBook() {
 }
 
 const submitBook = document.getElementById('submit-book');
-submitBook.addEventListener('click', createNewBook);
+submitBook.addEventListener('click', () => {
+  if (
+    document.getElementById('title-new').checkValidity() &&
+    document.getElementById('author-new').checkValidity() &&
+    document.getElementById('pages-new').checkValidity()
+  ) {
+    createNewBook();
+  }
+});
+
 submitBook.addEventListener('click', (e) => e.preventDefault());
 
 // // Test book objects
