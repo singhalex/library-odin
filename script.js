@@ -1,4 +1,5 @@
 const libraryContainer = document.getElementById('library-container');
+const submitBookButton = document.getElementById('submit-book');
 const library = [];
 
 function Book(title, author, pages, hasRead) {
@@ -12,6 +13,36 @@ function Book(title, author, pages, hasRead) {
 Book.prototype.toggleHasRead = function () {
   this.hasRead = !this.hasRead;
 };
+
+submitBookButton.addEventListener('click', addBookIfInputValid);
+
+function addBookIfInputValid() {
+  if (
+    // Checks each input field for a valid entry
+    document.getElementById('title-new').checkValidity() &&
+    document.getElementById('author-new').checkValidity() &&
+    document.getElementById('pages-new').checkValidity()
+  ) {
+    submitBookButton.addEventListener('click', (event) => event.preventDefault());
+    createNewBook();
+    document.activeElement.blur();
+  }
+}
+
+function createNewBook() {
+  // Take user input to form a new book object and adds it to the page
+  const form = document.getElementById('add-new-book');
+  const titleNew = document.getElementById('title-new').value;
+  const authorNew = document.getElementById('author-new').value;
+  const pagesNew = document.getElementById('pages-new').value;
+  const readNew = document.getElementById('read-new').checked;
+
+  // Creates a newBook object from the user input fields
+  const newBook = new Book(titleNew, authorNew, pagesNew, readNew);
+
+  displayBooks(newBook);
+  form.reset();
+}
 
 function displayBooks(book) {
   // Creates the html elements that comprise a card
@@ -79,33 +110,3 @@ function displayBooks(book) {
   bookCard.appendChild(deleteBook);
   bookCard.appendChild(haveRead);
 }
-
-function createNewBook() {
-  // Take user input to form a new book object and adds it to the page
-  const form = document.getElementById('add-new-book');
-  const titleNew = document.getElementById('title-new').value;
-  const authorNew = document.getElementById('author-new').value;
-  const pagesNew = document.getElementById('pages-new').value;
-  const readNew = document.getElementById('read-new').checked;
-
-  // Creates a newBook object from the user input fields
-  const newBook = new Book(titleNew, authorNew, pagesNew, readNew);
-
-  displayBooks(newBook);
-
-  form.reset();
-  console.table(library);
-}
-
-const submitBook = document.getElementById('submit-book');
-submitBook.addEventListener('click', () => {
-  if (
-    document.getElementById('title-new').checkValidity() &&
-    document.getElementById('author-new').checkValidity() &&
-    document.getElementById('pages-new').checkValidity()
-  ) {
-    submitBook.addEventListener('click', (e) => e.preventDefault());
-    createNewBook();
-    document.activeElement.blur();
-  }
-});
