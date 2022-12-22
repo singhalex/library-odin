@@ -101,6 +101,7 @@ submitBook.addEventListener('click', () => {
     document.getElementById('pages-new').checkValidity()
   ) {
     createNewBook();
+    document.getElementById('title-new').focus();
   }
 });
 
