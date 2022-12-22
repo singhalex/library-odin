@@ -44,20 +44,24 @@ function displayBooks(book) {
   deleteBook.innerText = 'X';
   deleteBook.addEventListener('click', () => {
     document.querySelector(`[data-attribute="${bookIndex}"]`).remove();
+
+    // locates the object in the array and removes it
     const whereIsBook = library.indexOf(book);
     library.splice(whereIsBook, 1);
   });
 
-  // Adds functionality to the hasRead button
+  // Changes the class and text when the read button is clicked
   haveRead.className = 'read-button';
   haveRead.innerText = book.hasRead ? 'Read' : 'Not Read';
   haveRead.addEventListener('click', () => {
+    // Toggles the class of the card container for styling
     bookCard.classList.toggle('has-read');
     if (bookCard.className === 'book-card has-read') {
       haveRead.innerText = 'Read';
     } else {
       haveRead.innerText = 'Not Read';
     }
+    // Toggles the object value for read status
     book.toggleHasRead();
     console.table(book);
   });
@@ -106,13 +110,3 @@ submitBook.addEventListener('click', () => {
 });
 
 submitBook.addEventListener('click', (e) => e.preventDefault());
-
-// // Test book objects
-// const book1 = new Book('The Grinch', 'Dr. Suess', '50');
-// const book2 = new Book('The Very Hungry Caterpillar', 'Eric Carle', '30');
-// const book3 = new Book('The Bible', 'Jesus', '1000000');
-
-// // Add test books to the library
-// library[0] = book1;
-// library[1] = book2;
-// library[2] = book3;
