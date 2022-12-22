@@ -22,17 +22,30 @@
     <h1>Welcome to the Library</h1>
     <form action="" id="add-new-book">
       <fieldset>
-        <label for="title-new">Title</label>
-        <input type="text" id="title-new" required />
+        <p id="form-row">
+          <label for="title-new">Title:</label>
+          <input type="text" id="title-new" required />
+        </p>
 
-        <label for="author-new">Author</label>
-        <input type="text" id="author-new" required />
+        <p id="form-row">
+          <label for="author-new">Author:</label>
+          <input type="text" id="author-new" required />
+        </p>
 
-        <label for="pages-new">Pages</label>
-        <input type="number" id="pages-new" required />
+        <p id="form-row">
+          <label for="pages-new">Pages:</label>
+          <input
+            type="number"
+            id="pages-new"
+            placeholder="Numbers only"
+            required
+          />
+        </p>
 
-        <label for="read-new">Read?</label>
-        <input type="checkbox" id="read-new" />
+        <p id="form-row" class="checkbox-input">
+          <label for="read-new">Read?</label>
+          <input type="checkbox" id="read-new" />
+        </p>
 
         <button type="submit" id="submit-book">Add</button>
       </fieldset>
