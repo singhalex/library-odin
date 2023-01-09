@@ -2,17 +2,18 @@ const libraryContainer = document.getElementById('library-container');
 const submitBookButton = document.getElementById('submit-book');
 const library = [];
 
-function Book(title, author, pages, hasRead) {
-  // Book constructor
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.hasRead = hasRead;
-}
+class Book {
+  constructor(title, author, pages, hasRead) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.hasRead = hasRead;
+  }
 
-Book.prototype.toggleHasRead = function () {
-  this.hasRead = !this.hasRead;
-};
+  toggleHasRead() {
+    this.hasRead = !this.hasRead;
+  }
+}
 
 submitBookButton.addEventListener('click', addBookIfInputValid);
 
