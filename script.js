@@ -2,6 +2,42 @@ const libraryContainer = document.getElementById('library-container');
 const submitBookButton = document.getElementById('submit-book');
 const library = [];
 
+// Get input elements
+const title = document.querySelector('#title-new');
+const author = document.querySelector('#author-new');
+const pages = document.querySelector('#pages-new');
+const error = document.querySelector('.error');
+
+// Display error when title is incorrect
+title.addEventListener('input', (e) => {
+  if (title.validity.valid) {
+    error.textContent = '';
+    error.className = 'error';
+  } else {
+    error.textContent = 'Enter Book Title'
+  }
+});
+
+// Display error when author is incorrect
+author.addEventListener('input', () => {
+  if (author.validity.valid) {
+    error.textContent = '';
+    error.className = 'error';
+  } else {
+    error.textContent = 'Enter Author';
+  };
+});
+
+// Display error when pages is incorrect
+pages.addEventListener('input', () => {
+  if (pages.validity.valid) {
+    error.textContent = '';
+    error.className = 'error'
+  } else {
+    error.textContent = 'Enter Pages';
+  };
+});
+
 class Book {
   constructor(title, author, pages, hasRead) {
     this.title = title;
@@ -17,18 +53,26 @@ class Book {
 
 submitBookButton.addEventListener('click', addBookIfInputValid);
 
-function addBookIfInputValid() {
+function addBookIfInputValid(e) {
+  e.preventDefault();
+
   if (
     // Checks each input field for a valid entry
     document.getElementById('title-new').checkValidity() &&
     document.getElementById('author-new').checkValidity() &&
     document.getElementById('pages-new').checkValidity()
   ) {
-    console.log('valid check');
-    submitBookButton.addEventListener('click', (event) => event.preventDefault());
+    // submitBookButton.addEventListener('click', (event) => event.preventDefault());
     createNewBook();
     // Removes focus from input fields
     document.activeElement.blur();
+    // Displays error when user tries to submit empty inputs
+  } else if (!title.validity.valid){
+    error.innerText = 'Please enter a title.';
+  } else if (!author.validity.valid) {
+    error.innerText = 'Please enter an author.';
+  } else {
+    error.innerText = 'Please enter the number of pages.';
   }
 }
 

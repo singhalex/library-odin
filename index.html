@@ -20,7 +20,7 @@
   </head>
   <body>
     <h1>Welcome to the Library</h1>
-    <form action="" id="add-new-book">
+    <form action="" id="add-new-book" novalidate>
       <fieldset>
         <legend>Track your books</legend>
         <div id="input-container">
@@ -46,6 +46,7 @@
             <input type="checkbox" id="read-new" />
           </p>
         </div>
+        <span class="error"></span>
 
         <button type="submit" id="submit-book">Add</button>
       </fieldset>
